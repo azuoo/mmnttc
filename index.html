@@ -1,33 +1,35 @@
-<div class="ad">
-                <p>إعلان 1</p>
-                <button onclick="showAdPopup('محتوى الإعلان 1')">عرض التفاصيل</button>
-            </div>
-            <div class="ad disabled">
-                <p>إعلان 2</p>
-                <button disabled>عرض التفاصيل</button>
-            </div>
-        </div>
-        <div id="withdrawal" class="page withdrawal-page" style="display:none">
-            <h1>سحب الأموال</h1>
+<div id="withdrawal" class="page withdrawal-page" style="display:none;">
+            <h1>??? ?????</h1>
             <div class="wallets">
                 <div class="wallet">
-                    <img src="images/wallet1.png" alt="محفظة 1">
-                    <p>محفظة 1</p>
+                    <img src="wallet1.jpg" alt="????? 1">
+                    <p>????? 1</p>
                 </div>
                 <div class="wallet">
-                    <img src="images/wallet2.png" alt="محفظة 2">
-                    <p>محفظة 2</p>
+                    <img src="wallet2.jpg" alt="????? 2">
+                    <p>????? 2</p>
                 </div>
+                <!-- ??? ???? ????? ?? ??????? ??? -->
             </div>
         </div>
+        <div id="ads" class="page ads-page" style="display:none;">
+            <h1>??????? ???????</h1>
+            <div class="ad">
+                <p>????? 1</p>
+                <button onclick="showAdPopup('ad1')">??? ??????</button>
+            </div>
+            <div class="ad">
+                <p>????? 2</p>
+                <button onclick="showAdPopup('ad2')">??? ??????</button>
+            </div>
+            <!-- ??? ???? ????? ?? ??????? ??? -->
+        </div>
     </div>
-    <div class="back-button" id="backButton" onclick="goBack()">العودة للخلف</div>
-    <div class="ad-popup" id="adPopup">
-        <button class="close" onclick="closeAdPopup()">إغلاق</button>
+    <div class="back-button" onclick="showPage('home')">??????</div>
+    <div id="adPopup" class="ad-popup">
+        <button class="close" onclick="closeAdPopup()">???</button>
         <div id="adContent"></div>
     </div>
-    <div class="copy-message" id="copyMessage">تم نسخ الرابط!</div>
-
     <script>
         function toggleSidebar() {
             var sidebar = document.getElementById('sidebar');
@@ -39,47 +41,36 @@
             pages.forEach(function(page) {
                 page.style.display = 'none';
             });
+            document.getElementById(pageId).style.display = 'block';
 
-            var selectedPage = document.getElementById(pageId);
-            if (selectedPage) {
-                selectedPage.style.display = 'block';
-            }
-
-            var backButton = document.getElementById('backButton');
-            if (pageId !== 'home') {
-                backButton.style.display = 'block';
+            if (pageId === 'home') {
+                document.querySelector('.back-button').style.display = 'none';
             } else {
-                backButton.style.display = 'none';
+                document.querySelector('.back-button').style.display = 'block';
             }
-        }
 
-        function goBack() {
-            showPage('home');
-        }
-
-        function showAdPopup(content) {
-            var adPopup = document.getElementById('adPopup');
-            var adContent = document.getElementById('adContent');
-            adContent.innerHTML = content;
-            adPopup.style.display = 'block';
-        }
-
-        function closeAdPopup() {
-            var adPopup = document.getElementById('adPopup');
-            adPopup.style.display = 'none';
+            toggleSidebar();
         }
 
         function copyReferralLink() {
-            var referralLink = document.getElementById('referralLink').innerText;
-            navigator.clipboard.writeText(referralLink).then(function() {
-                var copyMessage = document.getElementById('copyMessage');
-                copyMessage.style.display = 'block';
-                setTimeout(function() {
-                    copyMessage.style.display = 'none';
-                }, 2000);
-            }, function() {
-                console.error('Failed to copy referral link');
-            });
+            var copyText = document.getElementById('referralLink');
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            document.getElementById('copyMessage').style.display = 'block';
+            setTimeout(function() {
+                document.getElementById('copyMessage').style.display = 'none';
+            }, 2000);
+        }
+
+        function showAdPopup(adId) {
+            var adContent = document.getElementById('adContent');
+            adContent.innerHTML = '????? ????? ' + adId;
+            document.getElementById('adPopup').style.display = 'block';
+        }
+
+        function closeAdPopup() {
+            document.getElementById('adPopup').style.display = 'none';
         }
     </script>
 </body>
